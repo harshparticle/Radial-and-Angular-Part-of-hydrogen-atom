@@ -42,7 +42,7 @@ for n = 1:n_max
         rho = 2 * Z * r_num / (n * a0);
         L = laguerreL(n-l-1, 2*l+1, rho); % Associated Laguerre polynomial
         R_r = sqrt((2*Z/(n*a0))^3 * factorial(n-l-1) / (2*n * factorial(n+l))) ...
-        .* exp(-rho/2) .* rho.^(l+1) .* L;
+        .* exp(-rho/2) .* rho.^(l) .* L;
         % Store wavefunction
         WF_anal(state_index, :) = R_r;
         % Calculate expectation value <r> using analytical formula
@@ -91,7 +91,6 @@ for l=0:l_max
     % Coefficients
     xvecsort = xvec(:, ind);
     xwf = xvecsort.' * basis;
-
     total_xwf{l+1}=xwf;
 end
 
@@ -170,7 +169,7 @@ end
 hold off;
 
 % Add labels, title, and legend
-xlabel('r (nm)'); xlim([0 0.3]);
+xlabel('r (nm)'); xlim([0 1]);
 ylabel('\psi_{nl}(r)');
 title('Radial Wavefunctions for 1s to 3d States');
 legend('show', 'Location', 'best');

@@ -44,7 +44,7 @@ for n = 1:n_max
         R_r = sqrt((2*Z/(n*a0))^3 * factorial(n-l-1) / (2*n * factorial(n+l))) ...
         .* exp(-rho/2) .* rho.^(l) .* L;
         % Store wavefunction
-        WF_anal(state_index, :) = R_r;
+        WF_anal(state_index, :) = R_r.*r_num;
         % Calculate expectation value <r> using analytical formula
         Expectation_r(state_index) = (a0 / 2) * (3 * n^2 - l * (l + 1)); % In angstroms
         % Increment state index
@@ -78,7 +78,7 @@ l_max=3;
 total_xwf=cell(1,l_max+1);
 total_ener=cell(1,l_max+1);
 for l=0:l_max
-    K=-(((hbar^2)/2*m_e).*ddbasis)*basis'*dr*JWN; 
+    K=-(((hbar^2)/(2*m_e*1e-18)).*ddbasis)*basis'*dr*JWN; 
     V_coulomb = (-(e^2)./(4*pi*epsilon_0*rr*1e-9) + ((hbar^2*(l*(l+1)))./(2*m_e*(rr*1e-9).^2)));
     % Avoid the singularity at x = 0
     V_coulomb(rr == 0) = 0; % Set potential at x = 0 to 0
